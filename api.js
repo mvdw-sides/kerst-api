@@ -27,6 +27,7 @@ const Users = mongoose.model('User', {
 });
 
 
+
 server.get('/', (r, res) => { return res.send('<img src="https://i.imgur.com/DzfVJox.gif"/>')});
 
 server.get('/users', async (req, res) => {
@@ -43,6 +44,9 @@ server.get('/users', async (req, res) => {
 
 server.post('/users/:id', async (req, res) => {
     try {
+        if (!req.body.product) {
+            return res.status(400).json({});
+        }
         const user = await Users.findOne({_id: req.params.id});
         user.items.push({
             product: req.body.product,
