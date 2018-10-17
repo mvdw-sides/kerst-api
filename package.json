@@ -1,18 +1,18 @@
 {
-    "name": "kerst-api",
-    "version": "1.0.0",
-    "description": "De kerst api, niet gebruiken voor andere dingen.",
-    "main": "api.js",
-    "author": "Matti van de Weem",
-    "scripts": {
-      "start": "node api.js"
-    },
-    "license": "MIT",
-    "dependencies": {
-      "body-parser": "^1.18.3",
-      "cors": "^2.8.4",
-      "express": "^4.16.3",
-      "mongoose": "^5.2.10"
-    }
+  "name": "kerst-api",
+  "version": "1.0.0",
+  "description": "De kerst api, niet gebruiken voor andere dingen.",
+  "main": "api.js",
+  "author": "Matti van de Weem",
+  "scripts": {
+    "start": "node api.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.10",
+    "sha1": "^1.1.1"
   }
-  
+}

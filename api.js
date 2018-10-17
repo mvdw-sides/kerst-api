@@ -1,7 +1,8 @@
 const express =  require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const sha1 = require('sha1');
 const server = new express();
  
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/vdw-kerst');
@@ -24,6 +25,35 @@ const Users = mongoose.model('User', {
             default: false,
         },
     }] 
+});
+
+const Settings = mongoose.model('settings', {
+    type: String,
+    value: String,
+});
+
+
+// authentication :facepalm:
+server.use(async (req, res, next) => {
+    const pw = await Settings.findOne({type: 'password'});
+
+    // if no global pass, just go to next
+    if (!pw) {
+        return next();
+    }
+
+    const pass = pw.value;
+
+    if (
+        (req.query.pw && sha1(req.query.pw) === pass) ||
+        (req.headers.authorization && sha1(req.headers.authorization) === pass)
+    ) {
+        return next();
+    }
+
+    return res.status(401).json({
+        error: 'not authorized.',
+    });
 });
 
 
